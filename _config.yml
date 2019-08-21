@@ -2,7 +2,7 @@ title: Drakvuf
 description: DRAKVUF Dynamic Malware Analysis System
 google_analytics: 
 show_downloads: true
-theme: jekyll-theme-tactile
+theme: jekyll-theme-midnight
 
 gems:
   - jekyll-mentions
