@@ -14,30 +14,30 @@
 ```
 {
   "calls": [
+	{
+		"module-name": "DummyDriver.sys",
+		"module-rekall-profile": "/home/illuminati/College/gsoc19/pdbs/DummyDriver/DummyDriver.rekall.json",
+		"function-name": "add1",
+		"arguments": [
 			{
-				"module-name": "DummyDriver.sys",
-				"module-rekall-profile": "/home/illuminati/College/gsoc19/pdbs/DummyDriver/DummyDriver.rekall.json",
-        "function-name": "add1",
-        "arguments": [
-          {
-            "type": "INTEGER",
-            "value": 20000
-          }
-        ]
-    } ,
-    {  
-      "module-rekall-profile": "/home/illuminati/College/gsoc19/pdbs/DummyDriver/DummyDriver.rekall.json",
-			"function-name": "sub1",
-			"module-name": "DummyDriver.sys",				
-      "arguments": [
-        {
-          "type": "INTEGER",
-          "value": 10001
-        }
-      ]
+				"type": "INTEGER",
+				"value": 20000
+			}
+		]
+	} ,
+	{  
+	      	"module-rekall-profile": "/home/illuminati/College/gsoc19/pdbs/DummyDriver/DummyDriver.rekall.json",
+		"function-name": "sub1",
+		"module-name": "DummyDriver.sys",				
+	      	"arguments": [
+			{
+		  		"type": "INTEGER",
+		  		"value": 10001
+			}
+	      	]
 
-    }
+	}
      
-	]
+  ]
 }
 ```
