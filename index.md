@@ -11,7 +11,7 @@
   `sudo AFL/afl-fuzz -i <path to in> -o <path to out> -t 30000 -m 500 src/afl_injector -d <domain-name> -r <path-to-domain-rekall-profile> -f @@ -i <pid of process to be hijacked>`
 
 ####Format of the input file
-`
+```
 {
   "calls": [
 			{
@@ -40,4 +40,4 @@
      
 	]
 }
-`
+```
