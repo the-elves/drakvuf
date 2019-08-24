@@ -3,8 +3,38 @@ This project aims at fuzzing operating system drivers and system calls, without 
 
 ## Architecture
 architecture goes here
-### Instructions to Build
+
+### Environment Setup
+Fuzzer injects multiple functions and may cause blue screen of death. In such a event we need to restart the VM which reduces speed of fuzzing. To reduce the waiting time during the booting up of VM we save a VM once it starts and restore it when a restart is required. We provide restore_script.sh for this. restore_script.sh requires a saved VM and certain environment variables to be set. Follow the procedure given below to set it up
 1. Build drakvuf according to instruction given [here](https://drakvuf.com/)
+2. Start a vm and waitfor the OS to boot up completely
+```
+#xl create win.cfg
+```
+3. Save the state of VM to file \<vm-save-file\>
+```
+#xl save <name of vm> <vm-save-file>
+```
+4. Set environment variable **OS_FUZZ_XEN_SAV_FILE** the complete path of \<vm-save-file\>
+```
+export OS_FUZZ_XEN_SAV_FILE=<vm-save-file>
+```
+5. Set environment variable **OS_FUZZ_DOMAIN_SAVED_VOLUME** to the LVM volume you want to name the saved disk state of VM.
+```
+export OS_FUZZ_DOMAIN_SAVED_VOLUME=<path-to-saved-xen-lvm-volume>
+```
+6. Set environment variable **OS_FUZZ_DOMAIN_VOLUME** to the LVM drive name that you want. This is the path of disk in win.cfg file
+```
+export OS_FUZZ_DOMAIN_VOLUME=<path-to-xen-lvm-volume>
+```
+7. Create a lvm volume with name **$OS_FUZZ_DOMAIN_SAVED_VOLUME**
+8. Copy the contents of the **$OS_FUZZ_DOMAIN_VOLUME** to **$OS_FUZZ_DOMAIN_SAVED_VOLUME**
+```
+#dd if=$OS_FUZZ_DOMAIN_VOLUME of=OS_FUZZ_DOMAIN_SAVED_VOLUME bs=1M
+```
+
+### Instructions to Build
+
 2. cd drakvuf 
 3. cd AFL and build AFL
 
@@ -18,7 +48,7 @@ architecture goes here
 
   `sudo AFL/afl-fuzz -i <path to in> -o <path to out> -t 30000 -m 500 src/afl_injector -d <domain-name> -r <path-to-domain-rekall-profile> -f @@ -i <pid of process to be hijacked>`
   
-#### Format of the input file
+#### Format of the candidates input file
 ```
 {
   "calls": [
